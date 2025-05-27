@@ -1,0 +1,93 @@
+.ezy__featured31_ACfhG2Nl {
+  padding: 60px 0;
+  background: #f8f9fa;
+}
+
+.ezy__featured31_ACfhG2Nl-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #8b8d8f;
+  margin-bottom: 1.5rem;
+}
+
+.ezy__featured31_ACfhG2Nl-sub-heading {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* Table styling to mimic LaTeX */
+
+.latex-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+.latex-table th, .latex-table td {
+  border: 1px solid #dee2e6;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.latex-table th {
+  background: #9abadc;
+  color: white;
+  font-weight: bold;
+}
+
+.latex-table caption {
+  caption-side: bottom;
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+}
+
+.latex-table p {
+  margin: 0;
+}
+
+/* Figure placeholder styling */
+
+.figure-placeholder {
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px 0;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-style: italic;
+  color: #6c757d;
+}
+
+.figure-placeholder p {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+  .latex-table {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .latex-table th, .latex-table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .figure-placeholder {
+    min-height: 150px;
+  }
+}
+
