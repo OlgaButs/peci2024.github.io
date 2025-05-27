@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SOA</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/cargo-ship.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Lora.css">
+    <link rel="stylesheet" href="assets/css/Open%20Sans.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top fixed-top" id="mainNav" data-bs-spy="scroll" data-bs-target="" data-bs-smooth-scroll="true" style="padding:0;">
+        <div class="container"><a class="navbar-brand" href="index.html"></a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link fs-6" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active fs-6" href="tecnicalDetails.html">Details</a></li>
+                    <li class="nav-item"><a class="nav-link fs-6" href="equipe.html">Team</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background:url('assets/img/headerIndex.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="ezy__featured31_ACfhG2Nl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Our project advances automated classification of NST codes, critical for streamlining trade. We conducted an extensive review of 10 studies (2017–2023) via Google Scholar, using keywords like "NST," "Harmonized Code," "ML," and "AI." These studies informed our supervised learning approach for HS code prediction, combining traditional machine learning with modern transformer-based models to address challenges like noisy, multilingual, or short product descriptions.</p>
+                    <h3 class="mt-5">Key Research Findings</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">The reviewed studies highlight diverse approaches to HS code classification, from traditional ML to large language models (LLMs). Below, we summarize the 10 most relevant projects, showcasing their methodologies and how they shape our work.</p>
+                    <div class="accordion" role="tablist" id="researchAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingOne"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Attention Is All You Need (2017) </button></h2>
+                            <div class="accordion-collapse collapse show item-1 show" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingOne" id="collapseOne">
+                                <div class="accordion-body">
+                                    <p>Ashish Vaswani et al. introduced the Transformer, a novel architecture relying solely on attention mechanisms, eliminating recurrent and convolutional layers. Tested on WMT 2014 English-to-German and English-to-French translation tasks, it achieved 28.4 and 41.8 BLEU scores, respectively, outperforming prior models. The Transformer’s parallelization and efficiency inspired our use of transformer-based models like DistilBERT for NST code classification, enabling robust handling of complex text patterns.</p><a class="btn-watch-video mt-3" href="https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">View Study &nbsp;<i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingTwo"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Exploring ML Models for HS Code Prediction (2019) </button></h2>
+                            <div class="accordion-collapse collapse item-2" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingTwo" id="collapseTwo">
+                                <div class="accordion-body">
+                                    <p>Fatma Ali Mohamed Ali Altaheri applied six ML models (e.g., Linear SVM, Decision Trees) using the CRISP-DM framework to predict HS codes for Dubai Customs. The study used real customs datasets, preprocessing them for ML compatibility, and achieved 76.3% accuracy with Linear SVM. This work guided our model selection process, emphasizing the importance of testing multiple algorithms to balance accuracy and computational efficiency in NST classification.</p><a class="btn-watch-video mt-3" href="https://www.researchgate.net/publication/340738129_Exploring_Machine_Learning_Models_to_Predict_Harmonized_System_Code">View Study &nbsp;<i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingThree"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Classifying Short Text with CNNs (2019) </button></h2>
+                            <div class="accordion-collapse collapse item-3" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingThree" id="collapseThree">
+                                <div class="accordion-body">
+                                    <p>Jeffrey Luppes used Convolutional Neural Networks (CNNs) with domain-specific word embeddings from DBpedia to classify HS-2 and HS-4 codes. The approach achieved F1-scores of 0.92 (HS-2) and 0.88 (HS-4) across two datasets with over 1200 classes. The use of convolutional layers and batch normalization informed our exploration of neural networks for handling short, technical NST descriptions.</p><a class="btn-watch-video mt-3" href="https://www.cs.ru.nl/masters-theses/2019/J_Luppes___Classifying_short_text_for_the_Harmonized_System_with_convolutional_neural_networks.pdf">View Study&nbsp; <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingFour"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> ML for HS-6 Code Assignment (2020) </button></h2>
+                            <div class="accordion-collapse collapse item-4" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingFour" id="collapseFour">
+                                <div class="accordion-body">
+                                    <p>Deniss Ruder analyzed 1.1M US import descriptions, representing 3243 HS-6 codes, using algorithms like Rocchio, SVM, Random Forest, and CNNs with TF-IDF, Word2Vec, and GloVe features. The study demonstrated high efficiency in classifying uninformative texts, guiding our preprocessing techniques (e.g., TF-IDF) and model selection for robust NST code prediction in noisy datasets.</p><a class="btn-watch-video mt-3" href="https://www.bjmc.lu.lv/fileadmin/user_upload/lu_portal/projekti/bjmc/Contents/8_4_13_Spichakova.pdf">View Study&nbsp; <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingFive"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> NCM Code Classification with NLP (2021) </button></h2>
+                            <div class="accordion-collapse collapse item-5" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingFive" id="collapseFive">
+                                <div class="accordion-body">
+                                    <p>Pedro Pinheiro and Marcos Amaris applied NLP techniques and Support Vector Machines (SVM) to classify 340,000 product descriptions into 50 NCM classes, achieving 84% accuracy. The study’s preprocessing pipeline, including text cleaning and feature extraction, directly influenced our data preparation strategy for NST code classification.</p><a class="btn-watch-video mt-3" href="https://www.researchgate.net/publication/358631095_Classificacao_dos_Codigos_de_NCM_Usando_Processamento_de_Linguagem_Natural">View Study&nbsp; <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingSix"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix"> Goods Classification with KoELECTRA (2021) </button></h2>
+                            <div class="accordion-collapse collapse item-6" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingSix" id="collapseSix">
+                                <div class="accordion-body">
+                                    <p>Eunji Lee et al., in collaboration with Korea Customs Service, developed a KoELECTRA-based model to classify HS codes, achieving 95.5% top-3 accuracy across 265 subheadings using 129,084 past cases. This high accuracy validated our exploration of transformer models for precise NST code predictions in customs applications.</p><a class="btn-watch-video mt-3" href="https://www.researchgate.net/publication/355872382_Classification_of_Goods_Using_Text_Descriptions_With_Sentences_Retrieval">View Study&nbsp; <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingSeven"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven"> ML Framework for Indonesian Customs (2021) </button></h2>
+                            <div class="accordion-collapse collapse item-7" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingSeven" id="collapseSeven">
+                                <div class="accordion-body">
+                                    <p>Gede Yudi Paramartha et al. tackled multilingual and imbalanced HS code data for Indonesian Customs, using TF-IDF with bigrams and One-Hot Encoding. Their Multinomial Naive Bayes model achieved a 72.74% F1-score for full HS codes, informing our approach to handling mixed-language NST descriptions.</p><a class="btn-watch-video mt-3" href="https://www.researchgate.net/publication/351646621_Developing_Machine_Learning_Framework_to_Classify_Harmonized_System_Code_Case_Study_Indonesian_Customs">View Study &nbsp;<i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingEight"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"> Four-Stage NCM Classification (2022) </button></h2>
+                            <div class="accordion-collapse collapse item-8" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingEight" id="collapseEight">
+                                <div class="accordion-body">
+                                    <p>Pinheiro and Amaris developed a four-stage cascaded approach using SVM and Naive Bayes with NLP, classifying 340,000 product descriptions into 98 NCM classes with 90% accuracy. This multi-stage pipeline inspired our hierarchical classification strategy for NST codes.</p><a class="btn-watch-video mt-3" href="https://www.researchgate.net/publication/367145264_A_Four-Step_Cascade_Methodology_to_Classify_MCN_Codes_Using_NLP_Techniques">View Study &nbsp;<i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingNine"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine"> DistilBERT for HS Codes (2023) </button></h2>
+                            <div class="accordion-collapse collapse item-9" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingNine" id="collapseNine">
+                                <div class="accordion-body">
+                                    <p>Angga Wahyu Anggoro et al. utilized DistilBERT, a lightweight transformer, to classify HS codes from short, noisy commodity texts. The model’s performance matched BERT’s while requiring fewer resources, guiding our use of efficient transformers for NST classification in resource-constrained settings.</p><a class="btn-watch-video mt-3" href="https://core.ac.uk/download/553132666.pdf">View Study&nbsp; <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab" id="headingTen"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen"> LLMs in International Trade (2023) </button></h2>
+                            <div class="accordion-collapse collapse item-10" role="tabpanel" data-bs-parent="#researchAccordion" aria-labelledby="headingTen" id="collapseTen">
+                                <div class="accordion-body">
+                                    <p>Ignacio Marra de Artiñano et al. evaluated LLMs like ChatGPT 3.5 for HS code classification using agricultural product descriptions, achieving 60–90% accuracy across datasets. Their robust generalization across diverse data encouraged our exploration of LLMs for NST classification.</p><a class="btn-watch-video mt-3" href="https://publications.iadb.org/en/automatic-product-classification-international-trade-machine-learning-and-large-language-models">View Study&nbsp; <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="mt-5">Traditional ML vs. Modern Approaches</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Traditional ML models (e.g., SVM, Random Forest) excel in controlled datasets but struggle with cross-dataset generalization. Modern approaches like transformers and LLMs offer robust performance across diverse, noisy data. Our project combines both, leveraging traditional ML for interpretability and transformers for handling complex text patterns, ensuring scalability and accuracy for NST code classification.</p>
+                    <h3 class="mt-5">Machine Learning: The Engine Behind NST Classification</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Imagine teaching a child to identify fruits: you show them apples and oranges, label each one, and over time, they learn to recognize new fruits based on patterns. Machine learning (ML) works similarly, enabling computers to learn from data without explicit programming. In our project, ML powers the automated classification of NST codes, turning messy product descriptions into precise, tariff-ready labels for international trade.</p>
+                    <h4>What Is Machine Learning?</h4>
+                    <p>At its core, ML is about finding patterns in data to make predictions or decisions. As Shalev-Shwartz and Ben-David put it, it’s “the automated detection of meaningful patterns in data,” a tool now ubiquitous in tasks like spam filtering, image recognition, and—crucially for us—classifying trade goods. Our project uses ML to analyze thousands of product descriptions, predicting NST codes with high accuracy. This process involves feeding algorithms labeled data (e.g., “steel bolts” → NST code 10) and letting them learn the underlying patterns.</p>
+                    <h4>The Machine Learning Workflow</h4>
+                    <p>Building an ML model is like crafting a recipe: you gather ingredients, prepare them, cook, taste, and adjust. For NST classification, our workflow includes:</p>
+                    <ul>
+                        <li><strong>Data Collection</strong>: Gathering product descriptions and their NST codes, often noisy or multilingual.</li>
+                        <li><strong>Preprocessing</strong>: Cleaning data and extracting features using techniques like TF-IDF or Word2Vec, inspired by studies like Ruder’s (2020).</li>
+                        <li><strong>Training</strong>: Feeding labeled data to models like SVM or transformers to learn patterns.</li>
+                        <li><strong>Evaluation</strong>: Testing models with metrics like F1-score to ensure accuracy.</li>
+                        <li><strong>Deployment</strong>: Integrating the model into a system for real-time NST code prediction.</li>
+                    </ul>
+                    <p>The diagram below illustrates this process:</p><img class="img-fluid mb-4" src="assets/img/General-phases-of-text-Classification-pipeline.png" alt="Machine Learning Workflow">
+                    <h4>The Pillars of Machine Learning</h4>
+                    <p>ML isn’t one-size-fits-all; it’s a toolbox with various key approaches, each suited to different problems. Our project leans heavily on supervised learning, but understanding all subfields helps us choose the right tool. The image below shows their relevance to NST classification:</p><img class="img-fluid mb-4" src="assets/img/0_uilJ8L6dL4vkMqbP.png" alt="Machine Learning Approaches">
+                    <ul>
+                        <li><strong>Supervised Learning</strong>: Like a teacher guiding a student, this uses labeled data (e.g., product descriptions with NST codes) to predict outcomes. It’s our go-to for NST classification, achieving high accuracy with models like SVM or transformers. <em>Pros</em>: Precise with labeled data. <em>Cons</em>: Requires extensive labeling.</li>
+                        <li><strong>Unsupervised Learning</strong>: Think of sorting a messy closet without labels—it finds patterns in unlabeled data, like clustering similar products. Useful for exploratory analysis but less suited for our precise classification needs. <em>Pros</em>: No labels needed. <em>Cons</em>: Less control over outcomes.</li>
+                        <li><strong>Semi-Supervised Learning</strong>: A hybrid approach, using a small set of labeled data and a large pool of unlabeled data, like learning from a few examples and guessing the rest. It’s promising for scaling our NST dataset. <em>Pros</em>: Efficient with limited labels. <em>Cons</em>: Complex to implement.</li>
+                        <li><strong>Reinforcement Learning</strong>: Picture a robot learning to navigate by trial and error, rewarded for good moves. It’s great for dynamic systems but less relevant for our static classification task. <em>Pros</em>: Adapts to changing environments. <em>Cons</em>: Computationally intensive.</li>
+                    </ul>
+                    <h4>Choosing the Right Model</h4>
+                    <p>Picking an ML model is like choosing a car: you need the right fit for the journey. For NST classification, we tested various models, each with unique strengths:</p>
+                    <ul>
+                        <li><strong>Linear Models (e.g., Logistic Regression)</strong>: Simple and interpretable, like a bicycle for short trips. Great for smaller datasets but may struggle with complex patterns.</li>
+                        <li><strong>Tree-based Models (e.g., Random Forest, XGBoost)</strong>: Like a sturdy SUV, these handle complex, imbalanced data well, making them robust for diverse product descriptions.</li>
+                        <li><strong>Support Vector Machines (SVM)</strong>: Precise like a sports car, SVMs excel in high-dimensional text data, as seen in studies like Pinheiro’s (2021).</li>
+                        <li><strong>Neural Networks (e.g., CNNs, Transformers)</strong>: The racecars of ML, these capture intricate patterns in noisy or short texts, ideal for our transformer-based experiments.</li>
+                    </ul>
+                    <p>Our approach? Test them all. We evaluate models using metrics like F1-score and precision, balancing accuracy with computational efficiency. Techniques like TF-IDF and Word2Vec, drawn from reviewed studies, enhance our feature extraction, ensuring models learn the right patterns from product descriptions.</p>
+                    <p>By blending supervised learning with advanced preprocessing and model experimentation, we’re building a system that not only classifies NST codes accurately but also scales to real-world trade challenges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container-fluid">
+        <section class="ezy__clients12_uG0Qgehq" style="background:#0d6efd1a;padding:30px 0;">
+            <div class="container">
+                <div class="row justify-content-center mb-3">
+                    <div class="col text-center">
+                        <h5 class="ezy__clients12_uG0Qgehq-heading mb-3" style="font-size:24px;font-weight:bold;">Technologies</h5>
+                        <hr class="mt-2 mb-3" style="width:30%;margin:0 auto;">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-6 col-md-4 col-xl-2 mt-2">
+                        <div class="text-center ezy__clients12_uG0Qgehq-item p-2"><img class="img-fluid ezy__clients12_uG0Qgehq-img mb-2" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" style="height:80px;">
+                            <p class="mb-1"><strong>Python</strong>: The main language used in our projects.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2 mt-2">
+                        <div class="text-center ezy__clients12_uG0Qgehq-item p-2"><img class="img-fluid ezy__clients12_uG0Qgehq-img mb-2" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" style="height:80px;">
+                            <p class="mb-1"><strong>NumPy</strong>: Fundamental library for scientific computing.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2 mt-2">
+                        <div class="text-center ezy__clients12_uG0Qgehq-item p-2"><img class="img-fluid ezy__clients12_uG0Qgehq-img mb-2" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" style="height:80px;">
+                            <p class="mb-1"><strong>Pandas</strong>: Facilitates data analysis and manipulation.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2 mt-2">
+                        <div class="text-center ezy__clients12_uG0Qgehq-item p-2"><img class="img-fluid ezy__clients12_uG0Qgehq-img mb-2" src="assets/img/17349883.png" alt="Scikit-learn" style="height:80px;">
+                            <p class="mb-1"><strong>Scikit-learn</strong>: Powerful library for machine learning.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2 mt-2">
+                        <div class="text-center ezy__clients12_uG0Qgehq-item p-2"><img class="img-fluid ezy__clients12_uG0Qgehq-img mb-2" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" style="height:80px;">
+                            <p class="mb-1"><strong>PyTorch</strong>: Library for deep learning.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2 mt-2">
+                        <div class="text-center ezy__clients12_uG0Qgehq-item p-2"><img class="img-fluid ezy__clients12_uG0Qgehq-img mb-2" src="assets/img/Jupyter_logo.svg" alt="Jupyter" style="height: 80px;margin-right: 1px;margin-left: 5px;margin-top: 22px;">
+                            <p class="mb-1" style="margin-top: 16px;"><strong>Jupyter</strong>: Interactive tool for creating and sharing code.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div><footer>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <ul class="list-inline text-center">
+                    <!-- Ícone do GitHub com href -->
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Alcatrao/PECI-PRR_NEXUS" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text-muted copyright">Copyright © PECI _G8 : 2024</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

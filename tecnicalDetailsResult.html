@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Result</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/cargo-ship.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Lora.css">
+    <link rel="stylesheet" href="assets/css/Open%20Sans.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/Result.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top fixed-top" id="mainNav" data-bs-spy="scroll" data-bs-target="" data-bs-smooth-scroll="true" style="padding:0;">
+        <div class="container"><a class="navbar-brand" href="index.html"></a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link fs-6" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active fs-6" href="tecnicalDetails.html">Details</a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link fs-6" href="equipe.html">TEAM</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background: url(&quot;assets/img/headerIndex.jpg&quot;);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="ezy__featured31_ACfhG2Nl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Building a model is only half the battle—proving it works is where the real test lies. In our quest to classify cargo descriptions into NST codes, we rigorously evaluated seven models, from transformers like BERT to classic algorithms like Logistic Regression. By comparing their performance before and after data filtering, we uncovered the transformative power of preprocessing, like cleaning a lens to bring the world into focus. This page presents our findings, highlighting the metrics that shaped our conclusions and the path forward.</p>
+                    <h3 class="mt-5">Metrics Before Data Filtering</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Without preprocessing, our models faced a noisy dataset riddled with duplicates, missing values, and inconsistent labels. The results, shown below, reflect this challenge, with all models scoring below 0.75 across key metrics: accuracy, recall, precision, and F1-score. The SGDClassifier led with an accuracy and F1-score of 0.74, while the Feed Forward Neural Network struggled, barely surpassing 0.5.</p><table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Accuracy</th>
+                                <th>Recall</th>
+                                <th>Precision</th>
+                                <th>F1-Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Random Forest (Word2Vec)</td>
+                                <td>0.61</td>
+                                <td>0.58</td>
+                                <td>0.62</td>
+                                <td>0.60</td>
+                            </tr>
+                            <tr>
+                                <td>SGDClassifier</td>
+                                <td>0.74</td>
+                                <td>0.73</td>
+                                <td>0.74</td>
+                                <td>0.74</td>
+                            </tr>
+                            <tr>
+                                <td>Logistic Regression</td>
+                                <td>0.62</td>
+                                <td>0.63</td>
+                                <td>0.64</td>
+                                <td>0.64</td>
+                            </tr>
+                            <tr>
+                                <td>BERT</td>
+                                <td>0.63</td>
+                                <td>0.66</td>
+                                <td>0.61</td>
+                                <td>0.63</td>
+                            </tr>
+                            <tr>
+                                <td>DistilBERT</td>
+                                <td>0.62</td>
+                                <td>0.61</td>
+                                <td>0.65</td>
+                                <td>0.63</td>
+                            </tr>
+                            <tr>
+                                <td>Gated Recurrent Unit (GRU)</td>
+                                <td>0.60</td>
+                                <td>0.57</td>
+                                <td>0.58</td>
+                                <td>0.58</td>
+                            </tr>
+                            <tr>
+                                <td>Feed Forward Neural Network</td>
+                                <td>0.54</td>
+                                <td>0.49</td>
+                                <td>0.52</td>
+                                <td>0.51</td>
+                            </tr>
+                        </tbody>
+                        <caption>Table 6.1: Performance metrics for the evaluated models before data filtering.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">These modest scores underscore the dataset’s initial limitations, pushing us to refine our data before expecting robust model performance.</p>
+                    <h3 class="mt-5">Metrics After Data Filtering</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">After applying rigorous preprocessing—removing duplicates, filtering NULL values, aligning HS/NST codes, and adding semi-artificial HS code definitions—the models’ performance soared. Logistic Regression emerged as the top performer, achieving an accuracy of 0.94 and an F1-score of 0.95. Deep learning models like BERT and DistilBERT also excelled, with F1-scores of 0.92 and 0.93, respectively. Even simpler models, like Random Forest with Word2Vec, saw their F1-score jump from 0.60 to 0.76.</p><table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Accuracy</th>
+                                <th>Recall</th>
+                                <th>Precision</th>
+                                <th>F1-Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Random Forest (Word2Vec)</td>
+                                <td>0.78</td>
+                                <td>0.76</td>
+                                <td>0.77</td>
+                                <td>0.76</td>
+                            </tr>
+                            <tr>
+                                <td>SGDClassifier</td>
+                                <td>0.92</td>
+                                <td>0.91</td>
+                                <td>0.92</td>
+                                <td>0.91</td>
+                            </tr>
+                            <tr>
+                                <td>Logistic Regression</td>
+                                <td>0.94</td>
+                                <td>0.94</td>
+                                <td>0.96</td>
+                                <td>0.95</td>
+                            </tr>
+                            <tr>
+                                <td>BERT</td>
+                                <td>0.92</td>
+                                <td>0.93</td>
+                                <td>0.91</td>
+                                <td>0.92</td>
+                            </tr>
+                            <tr>
+                                <td>DistilBERT</td>
+                                <td>0.93</td>
+                                <td>0.93</td>
+                                <td>0.94</td>
+                                <td>0.93</td>
+                            </tr>
+                            <tr>
+                                <td>Gated Recurrent Unit (GRU)</td>
+                                <td>0.90</td>
+                                <td>0.92</td>
+                                <td>0.87</td>
+                                <td>0.90</td>
+                            </tr>
+                            <tr>
+                                <td>Feed Forward Neural Network*</td>
+                                <td>0.87</td>
+                                <td>0.89</td>
+                                <td>0.80</td>
+                                <td>0.83</td>
+                            </tr>
+                        </tbody>
+                        <caption>Table 6.2: Performance evaluation metrics after data filtration. *Note: Feed Forward Neural Network results may reflect specific optimizations.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">These gains highlight the critical role of preprocessing in reducing noise and enabling models to learn consistent patterns, transforming a challenging dataset into a foundation for high-performing classifiers.</p>
+                    <h3 class="mt-5">Conclusion</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Our journey to classify NST codes from cargo descriptions was a masterclass in turning raw, messy data into actionable insights. Despite initial hurdles—duplicates, inconsistent labels, and missing values—we achieved promising results through strategic preprocessing. By filtering out noise, aligning HS and NST codes, and enriching the dataset with semi-artificial HS code definitions, we laid a solid foundation. Semantic filtering and cross-validation further ensured robust model evaluation, testing performance on unseen data.</p>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Logistic Regression’s standout performance (0.95 F1-score) proved that simplicity can shine with clean data, while BERT and DistilBERT showcased the power of deep learning. Even traditional models like Random Forest benefited significantly, underscoring the universal impact of preprocessing. This project not only met our goals but also offered valuable lessons in tackling real-world classification challenges.</p>
+                    <h3 class="mt-5">Future Work</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">The road ahead is full of possibilities. Future efforts could explore alternative models, such as advanced transformers or hybrid architectures, to push accuracy even higher. More sophisticated preprocessing techniques, like dynamic semantic filtering or multilingual embeddings, could address remaining inconsistencies. Integrating external datasets, such as global trade records, might enrich our feature set. Finally, leveraging these models for business intelligence—streamlining port operations or predicting trade trends—offers exciting opportunities to extend this work’s impact.</p>
+                </div>
+            </div>
+        </div>
+    </section><footer>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <ul class="list-inline text-center">
+                    <!-- Ícone do GitHub com href -->
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Alcatrao/PECI-PRR_NEXUS" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text-muted copyright">Copyright © PECI _G8 : 2024</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

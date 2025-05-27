@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Model%20Used</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/cargo-ship.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Lora.css">
+    <link rel="stylesheet" href="assets/css/Open%20Sans.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/Model%20Used.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top fixed-top" id="mainNav" data-bs-spy="scroll" data-bs-target="" data-bs-smooth-scroll="true" style="padding:0;">
+        <div class="container"><a class="navbar-brand" href="index.html"></a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link fs-6" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active fs-6" href="tecnicalDetails.html"><strong>Details</strong></a></li>
+                    <li class="nav-item"><a class="nav-link fs-6" href="equipe.html">TEAM</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background: url(&quot;assets/img/headerIndex.jpg&quot;);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading"></div>
+                </div>
+            </div>
+        </div>
+    </header><section class="ezy__featured31_ACfhG2Nl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Classifying cargo descriptions into NST codes is like sorting a vast warehouse of goods—each model we use is a specialized tool in our toolbox. From powerful transformers like BERT to reliable workhorses like Logistic Regression, we explored a range of approaches to tackle this multi-class classification challenge. Equally critical is how we extract features from raw text, transforming messy cargo descriptions into numerical representations that models can understand. In this section, we dive into the models we used, their training processes, and the feature extraction techniques that power them.</p>
+                <h3 class="mt-5">Models Used</h3>
+                <h4>BERT: The Heavyweight Transformer</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">BERT (Bidirectional Encoder Representations from Transformers) is a powerhouse for text classification, leveraging its deep understanding of language context. Our implementation used the <i><b>BertForSequenceClassification</b></i> model from Hugging Face, starting with the <i><b>bert-base-uncased</b></i> checkpoint. Here’s how we set it up:</p>
+                <ul>
+                    <li><strong>Preprocessing</strong>: Replaced missing cargo descriptions and labels with “unknown,” converted all to strings, and excluded “unknown” entries to ensure data quality.</li>
+                    <li><strong>Label Encoding</strong>: Used <i><b>LabelEncoder</b></i> to convert NST codes into integer labels, compatible with BERT’s output layer.</li>
+                    <li><strong>Tokenization</strong>: Processed cargo descriptions with the BERT tokenizer (detailed in Feature Extraction).</li>
+                    <li><strong>Training</strong>: Fine-tuned the model for 5 epochs with a batch size of 2, using gradient accumulation (4 steps) to simulate larger batches on constrained hardware. Applied weight decay (0.01) for regularization, saved checkpoints per epoch, and logged every 50 steps. Evaluation was deferred to focus on test set predictions.</li>
+                </ul>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">BERT’s strength lies in its contextual embeddings, but its resource demands pushed us to explore lighter alternatives.</p>
+                <h4>DistilBERT: The Lightweight Champion</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">DistilBERT, a distilled version of BERT, retains 97% of its performance with half the parameters, making it ideal for memory-constrained environments. We used <i><b>TFDistilBertForSequenceClassification</b></i> from Hugging Face’s <i><b>distilbert-base-uncased</b></i> model. The workflow included:</p>
+                <ul>
+                    <li><strong>Preprocessing</strong>: Handled missing values as “unknown,” converted to strings, and removed “unknown” entries to avoid tokenization errors.</li>
+                    <li><strong>Label Encoding</strong>: Converted NST codes to integers with <i><b>LabelEncoder</b></i>.</li>
+                    <li><strong>Tokenization</strong>: Used the DistilBERT tokenizer (see Feature Extraction).</li>
+                    <li><strong>Training</strong>: Trained with 3-fold stratified cross-validation for robust metrics, using 3 epochs, a batch size of 4, and the Adam optimizer (learning rate 2e-5). Employed sparse categorical cross-entropy loss for multi-class classification.</li>
+                </ul>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">DistilBERT’s efficiency made it a strong contender, balancing performance and resource use.</p>
+                <h4>GRU: Capturing Sequential Patterns</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Gated Recurrent Units (GRUs) excel at processing sequential data like text, using update and reset gates to manage information flow. Our GRU model was built with PyTorch, following this workflow:</p>
+                <ul>
+                    <li><strong>Preprocessing</strong>: Loaded cargo descriptions and labels from Excel, tokenized texts into word sequences, converted to integer IDs, and padded to uniform length.</li>
+                    <li><strong>Dataset Creation</strong>: Used a custom PyTorch <i><b>Dataset</b></i> class and <i><b>DataLoader</b></i> for batch processing.</li>
+                    <li><strong>Model Architecture</strong>: Included an embedding layer (16-dimensional vectors), a GRU layer (32 hidden units), and a linear layer mapping to output classes.</li>
+                    <li><strong>Training</strong>: Trained for 10 epochs with a batch size of 8, using CrossEntropyLoss and the Adam optimizer (learning rate 0.01).</li>
+                    <li><strong>Prediction</strong>: Processed new inputs similarly, outputting predicted NST codes.</li>
+                </ul>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">GRUs offered a simpler alternative to transformers, capturing contextual dependencies efficiently.</p>
+                <h4>Random Forest: The Ensemble Powerhouse</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Random Forest, a robust ensemble of decision trees, was implemented to classify cargo descriptions. We addressed class imbalance using SMOTE (Synthetic Minority Oversampling Technique) to generate synthetic minority class samples. The workflow included:</p>
+                <ul>
+                    <li><strong>Preprocessing</strong>: Applied the <i><b>certocena</b></i> function to clean cargo descriptions.</li>
+                    <li><strong>Class Balancing</strong>: Used SMOTE via the <i><b>balance_data</b></i> function, as shown in the figure below.</li>
+                    <li><strong>Feature Extraction</strong>: Tested TF-IDF, Google Word2Vec, and FastText embeddings (detailed in Feature Extraction).</li>
+                    <li><strong>Training</strong>: Trained with <i><b>RandomForestClassifier</b></i> (700 trees, max depth 11, balanced class weights).</li>
+                    <li><strong>Evaluation</strong>: Used cross-validation to measure accuracy, precision, F1-score, and Matthews correlation coefficient (MCC).</li>
+                </ul>
+                <div class="figure-placeholder">
+                        <img src="assets/img/balance_data.png" alt="SMOTE Code Snippet" width="600" height="400">
+                        <p>Figure 5.2: Code snippet of the balance_data function used to balance classes with SMOTE.</p>
+                    </div>
+                    <div class="figure-placeholder">
+                        <img src="assets/img/randomForestFlow.jpg" alt="Random Forest Workflow" width="700" height="200">
+                        <p>Figure 5.3: Random Forest model workflow for cargo classification.</p>
+                    </div>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Random Forest’s simplicity and robustness made it effective, especially with balanced data.</p>
+                <h4>SGDClassifier: The Incremental Learner</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">The SGDClassifier, supporting incremental learning via <i><b>partial_fit</b></i>, was paired with Sentence Transformer embeddings (fine-tuned <i><b>MiniLM_pre_nst_2007_epoch5_bz2</b></i>). Key features included:</p>
+                <ul>
+                    <li><strong>Parameters</strong>: Log loss, 2000 iterations, optimal learning rate, elasticnet penalty (L1 ratio 0.5), balanced class weights.</li>
+                    <li><strong>Workflow</strong>: Generated 384-dimensional embeddings, scaled with <i><b>StandardScaler</b></i>, and evaluated with 10-fold cross-validation.</li>
+                </ul>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Its efficiency and adaptability made SGDClassifier ideal for real-time applications.</p>
+                <h4>Logistic Regression: The Reliable Workhorse</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Logistic Regression, a simple yet effective classifier, was implemented as a baseline for cargo classification. Its linear approach makes it fast and interpretable, ideal for establishing a performance benchmark. The workflow aligned with other machine learning models:</p>
+                <ul>
+                    <li><strong>Preprocessing</strong>: Applied the <i><b>certocena</b></i> function to clean cargo descriptions, handled missing values as “unknown,” and removed “unknown” entries.</li>
+                    <li><strong>Feature Extraction</strong>: Used embeddings like TF-IDF or Sentence Transformers (e.g., <i><b>MiniLM_pre_nst_2007_epoch5_bz2</b></i>), consistent with Random Forest and SGDClassifier (detailed in Feature Extraction).</li>
+                    <li><strong>Label Encoding</strong>: Converted NST codes to integer labels using <i><b>LabelEncoder</b></i>.</li>
+                    <li><strong>Training</strong>: Implemented with scikit-learn’s <i><b>LogisticRegression</b></i>, using L2 regularization to prevent overfitting. Tested C values (0.01, 0.1, 1) to optimize regularization strength, selecting the best automatically. Employed the lbfgs solver with a maximum of 10,000 iterations to ensure convergence.</li>
+                    <li><strong>Evaluation</strong>: Assessed performance using cross-validation, focusing on accuracy and F1-score to handle class imbalance.</li>
+                </ul>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Logistic Regression’s simplicity provided a solid baseline, helping us gauge the performance of more complex models.</p>
+                <h3 class="mt-5">Feature Extraction</h3>
+                <h4>Transformers: BERT and DistilBERT</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Transformers like BERT and DistilBERT extract features through tokenization and contextual embeddings, eliminating manual feature engineering:</p>
+                <ul>
+                    <li><strong>Tokenization</strong>: The BERT/DistilBERT tokenizers split cargo descriptions into subword tokens, add special tokens (e.g., [CLS]), and convert to numerical IDs. Padding and truncation ensure uniform sequence lengths for batch processing.</li>
+                    <li><strong>Contextual Embeddings</strong>: Tokens pass through the transformer, generating embeddings that capture word meaning and context via bidirectional self-attention. The [CLS] token’s final hidden state (or pooled output) represents the entire description for classification.</li>
+                    <li><strong>Advantages</strong>: Pre-trained on massive corpora (e.g., Wikipedia), these embeddings encode rich semantic and syntactic patterns, enabling robust generalization to varied cargo descriptions.</li>
+                </ul>
+                <h4>GRU: Simple Sequence Processing</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">The GRU model uses a basic tokenization approach:</p>
+                <ul>
+                    <li><strong>Tokenization</strong>: Converts text to lowercase, splits on spaces, and assigns integer IDs based on a vocabulary. Sequences are padded with zeros to match the longest sequence’s length.</li>
+                    <li><strong>Embeddings</strong>: An embedding layer maps word IDs to 16-dimensional dense vectors, processed by the GRU to capture sequential patterns.</li>
+                </ul>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">This simplicity suits smaller datasets but lacks the depth of transformer embeddings.</p>
+                <h4>Machine Learning: Diverse Embeddings</h4>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">For Random Forest, SGDClassifier, and Logistic Regression, we evaluated multiple embedding techniques, summarized below:</p>
+                <table class="latex-table">
+                    <thead>
+                        <tr>
+                            <th>Embedding</th>
+                            <th>Description</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TF-IDF</td>
+                            <td>Reflects word importance relative to the dataset.</td>
+                            <td>Used <i><b>TfidfVectorizer</b></i> with ngram_range (1,3), max_features 5000, sublinear_tf, smooth_idf. Efficient, no pre-trained model needed.</td>
+                        </tr>
+                        <tr>
+                            <td>Google Word2Vec</td>
+                            <td>Pre-trained 300-dimensional embeddings from Google News.</td>
+                            <td>Computed mean vector per description. Model size ~1.3 GB, captures contextual relationships.</td>
+                        </tr>
+                        <tr>
+                            <td>FastText</td>
+                            <td>Pre-trained 300-dimensional embeddings from Wikipedia.</td>
+                            <td>Handles out-of-vocabulary words via subword info. Model size ~1 GB.</td>
+                        </tr>
+                        <tr>
+                            <td>Sentence Transformers</td>
+                            <td>Fine-tuned <i><b>MiniLM_pre_nst_2007_epoch5_bz2</b></i> for 384-dimensional embeddings.</td>
+                            <td>Selected for efficiency (~80 MB) and performance (MCC 0.862). Scaled with <i><b>StandardScaler</b></i>.</td>
+                        </tr>
+                    </tbody>
+                    <caption>Embedding Techniques for Machine Learning Models.</caption>
+                </table>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Sentence Transformers, especially the fine-tuned MiniLM, balanced performance and efficiency, making them ideal for our ML models.</p>
+                <h3 class="mt-5">Model Parameters</h3>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">Each model’s performance hinges on carefully tuned parameters, summarized below:</p>
+                <table class="latex-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Key Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BERT</td>
+                            <td>5 epochs, batch size 2, gradient accumulation 4, weight decay 0.01, save per epoch, log every 50 steps.</td>
+                        </tr>
+                        <tr>
+                            <td>DistilBERT</td>
+                            <td>3 epochs, 3-fold CV, batch size 4, learning rate 2e-5, Adam optimizer, sparse categorical cross-entropy.</td>
+                        </tr>
+                        <tr>
+                            <td>GRU</td>
+                            <td>10 epochs, batch size 8, embedding dim 16, hidden dim 32, output dim 20, learning rate 0.01, CrossEntropyLoss.</td>
+                        </tr>
+                        <tr>
+                            <td>Random Forest</td>
+                            <td>700 trees, max depth 11, balanced class weights.</td>
+                        </tr>
+                        <tr>
+                            <td>SGDClassifier</td>
+                            <td>Log loss, 2000 iterations, optimal learning rate, elasticnet penalty, L1 ratio 0.5, balanced class weights.</td>
+                        </tr>
+                        <tr>
+                            <td>Logistic Regression</td>
+                            <td>C (0.01, 0.1, 1 tested, best selected), L2 penalty, lbfgs solver, max_iter 10,000.</td>
+                        </tr>
+                    </tbody>
+                    <caption>Key Parameters for Each Model.</caption>
+                </table>
+                <p class="ezy__featured31_ACfhG2Nl-sub-heading">These parameters were tuned to balance performance, efficiency, and robustness, ensuring our models effectively classify NST codes from diverse cargo descriptions.</p>
+            </div>
+        </div>
+    </div>
+</section><footer>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <ul class="list-inline text-center">
+                    <!-- Ícone do GitHub com href -->
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Alcatrao/PECI-PRR_NEXUS" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text-muted copyright">Copyright © PECI _G8 : 2024</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

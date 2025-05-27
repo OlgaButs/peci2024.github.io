@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Data</Data></title>
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/cargo-ship.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Lora.css">
+    <link rel="stylesheet" href="assets/css/Open%20Sans.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/data.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top fixed-top" id="mainNav" data-bs-spy="scroll" data-bs-target="" data-bs-smooth-scroll="true" style="padding:0;">
+        <div class="container"><a class="navbar-brand" href="index.html"></a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link fs-6" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active fs-6" href="tecnicalDetails.html">Details</a></li>
+                    <li class="nav-item"><a class="nav-link fs-6" href="equipe.html">Team</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background: url(&quot;assets/img/headerIndex.jpg&quot;);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading"></div>
+                </div>
+            </div>
+        </div>
+    </header>   <section class="ezy__featured31_ACfhG2Nl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">At the heart of our project lies a massive dataset from Porto de Sines, holding the key to automating NST code classification for international trade. But raw data is like unrefined ore—it needs careful analysis and polishing to reveal its value. In this page, we dive into our baseline evaluation, explore the dataset’s structure, uncover critical anomalies, and detail our strategies for cleaning and processing the data to ensure robust model performance.</p>
+                    
+                    <h3 class="mt-5">Baseline Comparison: Setting the Bar</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">How do you know a model is good enough? For us, the answer came from a Porto de Sines expert who set a clear benchmark: a model must accurately classify at least 65% of labeled data (excluding duplicates) to be considered “excellent.” This baseline is our starting line, but we’re aiming higher, striving for the highest accuracy possible.</p>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Accuracy is our primary metric, measured by comparing a model’s predicted NST code to the original label for each cargo description. But accuracy alone can be misleading. Imagine a survey where 90% of respondents prefer apples over oranges—a lazy model could predict “apples” every time and score 90%, yet learn nothing useful. This is the trap of imbalanced datasets, where one NST code dominates. To avoid this, we also prioritize <strong>recall</strong> (catching all relevant cases) and <strong>F1-score</strong> (balancing precision and recall), ensuring our model is robust without sacrificing accuracy.</p>
+
+                    <h3 class="mt-5">Data Analysis: Decoding the Dataset</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Our dataset, an Excel file from Porto de Sines, is a treasure trove of nearly 800,000 entries across 21 columns. The stars of the show are <i><b>Cargo_Description</i></b>, <i><b>Harmonized_Code</i></b>, and <i><b>NST2007_3P</i></b>, which hold the raw text, HS codes, and NST labels we need for classification. Other columns, like <i><b>Movement_Date</i></b> or <i><b>Packages_Quantity</i></b>, were deemed less relevant—though they could reveal patterns, like certain goods being common at specific ports or times. To keep things focused, we zeroed in on <i><b>Cargo_Description</i></b> and <i><b>NST2007_3P</i></b>.</p>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">The <i><b>Cargo_Description</i></b> field is a wild card. Some entries are detailed, with technical terms, weights, or intended uses. Others are cryptic numeric strings (likely HS codes), fragmented phrases, or written in broken English or Portuguese. This lack of structure is a headache for classification, as consistency is key for machine learning. Meanwhile, <i><b>Harmonized_Code</i></b> and <i><b>NST2007_3P</i></b> provide the HS and 3-digit NST labels, with <i><b>NST2007_2P</i></b> offering a coarser 2-digit version.</p>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">About 5% of entries lack NST labels—these are our targets for automated classification. Among these, some include HS codes in the description, which could simplify labeling via direct mapping to NST codes. However, challenges arise when descriptions contain multiple HS codes, as shown below:</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Container Plate</th>
+                                <th>Cargo Description</th>
+                                <th>NST2007_3P</th>
+                                <th>NST2007_2P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MSMU6522591</td>
+                                <td>MATERIALES DE CONSTRUCCION 23 PALLETS Y 4 BULTOS CON 103 PERFILES DE ALUMINIO HS CODE: 38160090 MERCANCIA DESTINADA A LA OBRA PUNTA AGUILA 28.</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                        <caption>Example of an unlabeled entry with an HS code in Cargo_Description.</caption>
+                    </table>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Container Plate</th>
+                                <th>Cargo Description</th>
+                                <th>NST2007_3P</th>
+                                <th>NST2007_2P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>UESU5196213</td>
+                                <td>SPOT LIGHTS&ACCESSORIES HS CODE 4819100040 SPOT LIGHTS&ACCESSORIES HS CODE 7105900000 SPOT LIGHTS&ACCESSORIES HS CODE 7326908688 SPOT LIGHTS&ACCESSORIES HS CODE 8535908040 SPOT LIGHTS&ACCESSORIES HS CODE 8536610000 SPOT LIGHTS&ACCESSORIES HS CODE 8541410000 SPOT LIGHTS&ACCESSORIES HS CODE 8541499500 SPOT LIGHTS&ACCESSORIES HS CODE 9405106010 SPOT</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                        <caption>Example of multiple HS codes in an unlabeled Cargo_Description.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Multiple HS codes can map to the same NST label, but at the 3-digit <i><b>NST2007_3P</i></b> level (81 categories), they sometimes diverge, complicating classification. A pattern suggests prioritizing the first HS code in the description for mapping, as it often aligns with the primary cargo type.</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Container Plate</th>
+                                <th>Cargo Description</th>
+                                <th>Harmonized Code</th>
+                                <th>NST2007_3P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MSMU5013537</td>
+                                <td>Automobile filters (HS: 842131, 842123, 842139), came and crank sensor (HS: 902990, 853650), ignition coil (HS: 851130), fuel pressure sensor (HS: 902620). Freight payable at Le Havre.</td>
+                                <td>84213100</td>
+                                <td>131</td>
+                            </tr>
+                        </tbody>
+                        <caption>Example of a comprehensive cargo description with multiple HS codes.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Numeric HS codes in descriptions are a goldmine—46.2% of unlabeled entries and 49.8% of labeled ones contain valid HS codes, with 35.8% and 36.3% explicitly marked (e.g., “HS 12345678”). These can be mapped to NST codes using correspondence tables, reducing reliance on complex ML for some cases.</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Cargo Description</th>
+                                <th>Harmonized Code</th>
+                                <th>NST2007_3P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>22030001</td>
+                                <td>22030001</td>
+                                <td>86</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039996</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <td>07108095 Vegetables, not, cooked</td>
+                                <td>7108095</td>
+                                <td>14</td>
+                            </tr>
+                        </tbody>
+                        <caption>Cargo descriptions with numeric or HS-preceded codes.</caption>
+                    </table>
+
+                    <h3 class="mt-5">Anomalies Detected: The Data’s Dark Side</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Digging into the dataset revealed a host of issues that threaten our ML model’s performance. These aren’t just quirks—they’re potential landmines for supervised learning, where clean, coherent data is king. Here’s what we found:</p>
+                    <ul>
+                        <li><strong>Duplicate Entries</strong>: Identical cargo descriptions skew the dataset, overemphasizing certain records.</li>
+                        <li><strong>Empty/Placeholder Descriptions</strong>: Entries with “NULL,” “nan,” or “Empty Container” lack meaningful content, yet some have valid NST labels, suggesting errors.</li>
+                        <li><strong>Inconsistent HS Code Formats</strong>: Codes appear as “12345678,” “1234.56.78,” “12-34-56,” etc., complicating parsing.</li>
+                        <li><strong>Mismatched HS and NST Codes</strong>: Some HS codes don’t align with their NST labels, confirmed by correspondence tables.</li>
+                        <li><strong>Incoherent Labeling</strong>: The worst offender—cargo descriptions with labels that don’t match their content, undermining training data quality.</li>
+                    </ul>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Incoherent labeling is particularly dire. Consider these examples, where HS and NST labels mismatch the cargo description:</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cargo Description</td>
+                                <td>Flour, meal, powder, flakes, granules, and pellets</td>
+                            </tr>
+                            <tr>
+                                <td>Harmonized Code</td>
+                                <td>11051000</td>
+                            </tr>
+                            <tr>
+                                <td>NST2007_3P Code</td>
+                                <td>01B</td>
+                            </tr>
+                            <tr>
+                                <td>HS Label</td>
+                                <td>Flour, meal, and powder of potatoes</td>
+                            </tr>
+                            <tr>
+                                <td>NST Label</td>
+                                <td>Fish and other fishing products</td>
+                            </tr>
+                        </tbody>
+                        <caption>Entry with correct HS label but incorrect NST label.</caption>
+                    </table>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cargo Description</td>
+                                <td>BAG DRESS HAT SCARF SHIRT WOMEN SCARVES</td>
+                            </tr>
+                            <tr>
+                                <td>Harmonized Code</td>
+                                <td>40111000</td>
+                            </tr>
+                            <tr>
+                                <td>NST2007_3P Code</td>
+                                <td>052</td>
+                            </tr>
+                            <tr>
+                                <td>HS Label</td>
+                                <td>New pneumatic tyres, of rubber, of a kind used for motor cars</td>
+                            </tr>
+                            <tr>
+                                <td>NST Label</td>
+                                <td>Wearing apparel and articles of fur</td>
+                            </tr>
+                        </tbody>
+                        <caption>Entry with incorrect HS label but correct NST label.</caption>
+                    </table>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cargo Description</td>
+                                <td>ROOFING TILE "VEREA" HS:690510</td>
+                            </tr>
+                            <tr>
+                                <td>Harmonized Code</td>
+                                <td>11061000</td>
+                            </tr>
+                            <tr>
+                                <td>NST2007_3P Code</td>
+                                <td>01B</td>
+                            </tr>
+                            <tr>
+                                <td>HS Label</td>
+                                <td>Flour, meal and powder of peas, beans, lentils</td>
+                            </tr>
+                            <tr>
+                                <td>NST Label</td>
+                                <td>Fish and other fishing products</td>
+                            </tr>
+                        </tbody>
+                        <caption>Entry with incorrect HS and NST labels.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Labeling inconsistencies extend to identical descriptions receiving different codes. For example, “Harry Potter” book entries show varied HS codes, both plausible but mapped to incorrect NST codes:</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Cargo Description</th>
+                                <th>Harmonized Code</th>
+                                <th>NST2007_3P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BOOK-PORTUGUESE EDITION HARRY POTTER BOOK WARM-PORTUGUESE EDITION</td>
+                                <td>49019900</td>
+                                <td>61</td>
+                            </tr>
+                            <tr>
+                                <td>BOOK-PORTUGUESE EDITION HARRY POTTER BOOK WARM-PORTUGUESE EDITION</td>
+                                <td>49030000</td>
+                                <td>61</td>
+                            </tr>
+                        </tbody>
+                        <caption>Harry Potter entries with different HS codes and incorrect NST correspondences.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Similarly, entries with “HS CODES: 64039996, 64039996” (indicating footwear) received varied HS codes, often unrelated to clothing, and NST codes for pharmaceuticals or plastics:</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Cargo Description</th>
+                                <th>Harmonized Code</th>
+                                <th>NST2007_3P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64035119</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64035119</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64035119</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64035999</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64035999</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039116</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039116</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039116</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039116</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039118</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039996</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039996</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <td>HS CODES: 64039996, 64039996</td>
+                                <td>64039996</td>
+                                <td>85</td>
+                            </tr>
+                        </tbody>
+                        <caption>All entries with Cargo_Description 'HS CODES: 64039996, 64039996' and their respective HS and NST assigned values.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">These inconsistencies—whether for “ENERGY DRINKS,” “Harry Potter,” or footwear—make training a reliable model nearly impossible without thorough data cleaning.</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Cargo Description</th>
+                                <th>Harmonized Code</th>
+                                <th>NST2007_3P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ENERGY DRINKS</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>ENERGY DRINKS</td>
+                                <td>9011100</td>
+                                <td>17</td>
+                            </tr>
+                            <tr>
+                                <td>energy drinks</td>
+                                <td>20029099</td>
+                                <td>41</td>
+                            </tr>
+                            <tr>
+                                <td>ENERGY DRINKS</td>
+                                <td>22041091</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <td>ENERGY DRINKS</td>
+                                <td>85163300</td>
+                                <td>114</td>
+                            </tr>
+                        </tbody>
+                        <caption>Entries with “ENERGY DRINKS” and varying HS/NST codes.</caption>
+                    </table>
+
+                    <h3 class="mt-5">Data Treatment: Polishing the Raw Data</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Cleaning data is like polishing a lens—remove the smudges, and the picture becomes clear. Our dataset’s issues, from duplicates to incoherent labels, demanded a robust treatment strategy. We tackled these through normalization, semantic filtering, and data padding, ensuring our ML models train on high-quality data.</p>
+                    
+                    <h4>Data Normalization</h4>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">We addressed the dataset’s anomalies systematically:</p>
+                    <ul>
+                        <li><strong>Duplicate Entries</strong>: Dropped duplicates based on identical <i><b>Cargo_Description</i></b> values to prevent overemphasizing redundant records.</li>
+                        <li><strong>Empty/Placeholder Descriptions</strong>: Removed entries with “NULL,” “nan,” or “Empty Container,” as they provide no useful information and confuse models when paired with valid labels.</li>
+                        <li><strong>Mismatched HS and NST Codes</strong>: Used a 2007 HS-to-NST correspondence table to align <i><b>NST2007_3P</i></b> labels with <i><b>Harmonized_Code</i></b> values, prioritizing HS codes as they appeared more consistent.</li>
+                        <li><strong>Incoherent Labeling</strong>: Filtered entries where <i><b>Cargo_Description</i></b> was semantically unrelated to the assigned label, using automated methods due to the dataset’s size (800,000+ entries).</li>
+                    </ul>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">These steps reduced noise and improved data consistency, setting the stage for effective model training.</p>
+                    
+                    <h4>Data Semantic Filtering</h4>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">To tackle incoherent labeling, we computed semantic similarity between <i><b>Cargo_Description</i></b> text and NST label definitions (aligned with HS codes). We tested filtering thresholds (e.g., dropping entries below 50% similarity or keeping the top 75%) to optimize model performance against our 65% accuracy baseline. For example, the Harry Potter entry below had a low similarity score to its NST label (“Printed matter and recorded media”) and was discarded:</p>
+                    <blockquote class="blockquote">
+                        <p>BOOK-PORTUGUESE EDITION HARRY POTTER BOOK WARM-PORTUGUESE EDITION</p>
+                    </blockquote>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">This approach, while not perfect, significantly reduced contradictory entries, boosting model accuracy, as validated by training and test metrics.</p>
+                    
+                    <h4>Data Padding</h4>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">To address underrepresented NST labels, we augmented the dataset with synthetic entries based on HS code definitions (4-, 6-, and 8-digit levels) from the 2007 standard. These entries, paired with corresponding NST labels via a correspondence table, added semantic richness despite differing from real-world descriptions. This process is detailed further in our preprocessing methodology.</p>
+
+                    <h3 class="mt-5">Data Processing: Crafting a Clean Dataset</h3>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">Data preprocessing is the foundation of any ML model—like preparing a canvas before painting. Our preprocessing pipeline, implemented in the <i><b>certocena</i></b> function, transforms raw <i><b>Cargo_Description</i></b> text into a standardized format, reducing noise and enhancing feature extraction for better classification accuracy.</p>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">The pipeline addresses inconsistencies like special characters, HS codes, and irrelevant terms. Below is a simplified view of the workflow, with a placeholder for the original figure:</p>
+                    <div class="figure-placeholder">
+                        <img src="assets/img/Pipeline.jpg" alt="Simplified Preprocessing Pipeline Workflow" class="img-fluid">
+                        <p>Figure: Simplified Preprocessing Pipeline Workflow</p>
+                    </div>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">The following table outlines each preprocessing step and its purpose:</p>
+                    <table class="latex-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>Description</th>
+                                <th>Rationale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Remove Nonsensical Spaces</td>
+                                <td>Concatenates words incorrectly split by spaces (e.g., "fre sh" → "fresh").</td>
+                                <td>Improve text coherence.</td>
+                            </tr>
+                            <tr>
+                                <td>Split Alphanumeric Strings</td>
+                                <td>Separates letters and numbers in mixed strings (e.g., "hs123456" → "hs 123456").</td>
+                                <td>Facilitates accurate HS code detection.</td>
+                            </tr>
+                            <tr>
+                                <td>Concatenate Numerical Words</td>
+                                <td>Merges consecutive numerical tokens (e.g., "12 34" → "1234").</td>
+                                <td>Prevents numerical data misinterpretation.</td>
+                            </tr>
+                            <tr>
+                                <td>Replace HS Codes with Labels</td>
+                                <td>Converts HS codes to descriptive labels (e.g., "12345678" → "Fresh fruit").</td>
+                                <td>Enhances interpretability.</td>
+                            </tr>
+                            <tr>
+                                <td>Lowercase Text</td>
+                                <td>Converts all text to lowercase.</td>
+                                <td>Reduces case-sensitive variations.</td>
+                            </tr>
+                            <tr>
+                                <td>Remove Patterns</td>
+                                <td>Eliminates irrelevant patterns (e.g., "freight payable at").</td>
+                                <td>Removes domain-specific noise.</td>
+                            </tr>
+                            <tr>
+                                <td>Remove Volume Words</td>
+                                <td>Removes volume-related terms (e.g., "50x10cl").</td>
+                                <td>Eliminates irrelevant measurements.</td>
+                            </tr>
+                            <tr>
+                                <td>Remove Specific Substrings</td>
+                                <td>Removes phrases like purchase orders (e.g., "po 123").</td>
+                                <td>Reduces logistical clutter.</td>
+                            </tr>
+                            <tr>
+                                <td>Remove Special Characters</td>
+                                <td>Replaces non-alphanumeric characters with spaces.</td>
+                                <td>Simplifies text analysis.</td>
+                            </tr>
+                            <tr>
+                                <td>Remove Stopwords</td>
+                                <td>Filters out common words, excluding negations.</td>
+                                <td>Focuses on meaningful terms.</td>
+                            </tr>
+                            <tr>
+                                <td>Lemmatize Words</td>
+                                <td>Reduces words to base form (e.g., "apples" → "apple").</td>
+                                <td>Normalizes vocabulary.</td>
+                            </tr>
+                        </tbody>
+                        <caption>Preprocessing Steps and Their Rationales.</caption>
+                    </table>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">This pipeline ensures clean, consistent data, critical for training robust models.</p>
+                    <p class="ezy__featured31_ACfhG2Nl-sub-heading">These analyses highlight the dataset’s complexity, guiding our preprocessing to focus on meaningful features like cargo descriptions and HS codes, ultimately enabling accurate NST classification.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <footer>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <ul class="list-inline text-center">
+                    <!-- Ícone do GitHub com href -->
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Alcatrao/PECI-PRR_NEXUS" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text-muted copyright">Copyright © PECI _G8 : 2024</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
