@@ -57,16 +57,12 @@
 /* index ---Section Main */
 
 .ezy__header18_BL4uLA38 {
-  --bs-body-color: #373737;
-  --bs-body-bg: #ffffff;
-  --ezy-theme-color: rgb(13, 110, 253);
-  --ezy-theme-color-rgb: 13, 110, 253;
-  --ezy-btn-bg: #00bfa5;
-  --ezy-btn-color: #fff;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/img/container-3118783_1920.jpg') center/cover no-repeat;
-  height: 80vh;
-  position: relative;
-  overflow: hidden;
+    --bs-body-color: #373737;
+    --bs-body-bg: #ffffff;
+    --ezy-theme-color: rgb(13, 110, 253);
+    --ezy-theme-color-rgb: 13, 110, 253;
+    --ezy-btn-bg: #00bfa5;
+    --ezy-btn-color: #fff;
 }
 
 .ezy__header18_BL4uLA38-part-inner {
