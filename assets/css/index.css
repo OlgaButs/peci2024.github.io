@@ -63,7 +63,7 @@
   --ezy-theme-color-rgb: 13, 110, 253;
   --ezy-btn-bg: #00bfa5;
   --ezy-btn-color: #fff;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), background-image: url('../img/container-3118783_1920.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), image: url("../img/container-3118783_1920.jpg") center/cover no-repeat;
   height: 80vh;
   position: relative;
   overflow: hidden;
